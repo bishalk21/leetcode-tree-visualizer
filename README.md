@@ -22,3 +22,5 @@
 
 > Drawing a binary tree - in 2D graphical representation in Canvas
 > tree - set of nodes (properties) and edges (connections)
+> node - set of properties (value, left, right)
+> edge - set of properties (parent, child)
