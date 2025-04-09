@@ -50,9 +50,35 @@ function recursivelyDrawNode(
   const yPosition = currentLevel * DEFAULT_CONFIG.nodeHeightSpacing;
 
   drawNode(root.value, canvasElement, xPosition, yPosition);
+
+  if (root.left !== null) {
+    const leftXStart = xStart;
+    const leftXEnd = xPosition;
+    recursivelyDrawNode(root.left, canvasElement, currentLevel + 1, {
+      xStart: leftXStart,
+      xEnd: leftXEnd,
+    });
+  }
+
+  if (root.right !== null) {
+    const rightXStart = xPosition;
+    const rightXEnd = xEnd;
+    recursivelyDrawNode(root.right, canvasElement, currentLevel + 1, {
+      xStart: rightXStart,
+      xEnd: rightXEnd,
+    });
+  }
 }
 
 const root = new BinaryTreeNode(1);
+const leftChild = new BinaryTreeNode(2);
+root.setLeft(leftChild);
+const rightChild = new BinaryTreeNode(3);
+root.setRight(rightChild);
+const leftChildLeft = new BinaryTreeNode(4);
+leftChild.setLeft(leftChildLeft);
+const leftChildRight = new BinaryTreeNode(5);
+leftChild.setRight(leftChildRight);
 
 console.log(root);
 drawBinaryTree(root, canvas);

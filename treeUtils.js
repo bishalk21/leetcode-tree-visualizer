@@ -40,3 +40,27 @@ export function drawNode(value, canvasElement, x, y) {
   //   context.fillText(value, x, y);
   context.fillText(value, x, y + DEFAULT_CONFIG.fontSize / 2); // Adjust y position for better centering
 }
+
+export function connectEdges(canvasElement, xCoordinates, yCoordinates) {
+  const { xStart, xEnd } = xCoordinates;
+  const { yStart, yEnd } = yCoordinates;
+
+  const start = {
+    x: xStart,
+    y: yStart,
+  };
+
+  const end = {
+    x: xEnd,
+    y: yEnd,
+  };
+
+  const context = canvasElement.getContext("2d");
+  context.beginPath();
+  context.moveTo(start.x, start.y);
+  context.lineTo(end.x, end.y);
+  context.strokeStyle = "black";
+  context.lineWidth = 2;
+  context.stroke();
+  context.closePath();
+}
