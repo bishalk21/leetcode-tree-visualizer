@@ -1,5 +1,6 @@
 import { BinaryTreeNode } from "./BinaryTreeNode.js";
 import {
+  connectEdges,
   DEFAULT_CONFIG,
   drawNode,
   getRequiredHeightAndWidth,
@@ -58,6 +59,17 @@ function recursivelyDrawNode(
       xStart: leftXStart,
       xEnd: leftXEnd,
     });
+
+    connectEdges(
+      canvasElement,
+      { xStart: xPosition, xEnd: (xStart + xPosition) / 2 },
+      {
+        yStart: yPosition + DEFAULT_CONFIG.radius,
+        yEnd:
+          (currentLevel + 1) * DEFAULT_CONFIG.nodeHeightSpacing -
+          DEFAULT_CONFIG.radius,
+      }
+    );
   }
 
   if (root.right !== null) {
@@ -67,6 +79,17 @@ function recursivelyDrawNode(
       xStart: rightXStart,
       xEnd: rightXEnd,
     });
+
+    connectEdges(
+      canvasElement,
+      { xStart: xPosition, xEnd: (xPosition + xEnd) / 2 },
+      {
+        yStart: yPosition + DEFAULT_CONFIG.radius,
+        yEnd:
+          (currentLevel + 1) * DEFAULT_CONFIG.nodeHeightSpacing -
+          DEFAULT_CONFIG.radius,
+      }
+    );
   }
 }
 
