@@ -50,6 +50,15 @@ export function connectEdges(canvasElement, xCoordinates, yCoordinates) {
     y: yStart,
   };
 
+  const controlPoint1 = {
+    x: (xStart + xEnd) / 2,
+    y: (yStart + yEnd) / 2,
+  };
+  const controlPoint2 = {
+    x: xEnd,
+    y: (yStart + yEnd) / 2,
+  };
+
   const end = {
     x: xEnd,
     y: yEnd,
@@ -58,7 +67,15 @@ export function connectEdges(canvasElement, xCoordinates, yCoordinates) {
   const context = canvasElement.getContext("2d");
   context.beginPath();
   context.moveTo(start.x, start.y);
-  context.lineTo(end.x, end.y);
+  // context.lineTo(end.x, end.y);
+  context.bezierCurveTo(
+    controlPoint1.x,
+    controlPoint1.y,
+    controlPoint2.x,
+    controlPoint2.y,
+    end.x,
+    end.y
+  );
   context.strokeStyle = "black";
   context.lineWidth = 2;
   context.stroke();
