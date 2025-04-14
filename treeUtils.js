@@ -1,3 +1,5 @@
+import { BinaryTreeNode } from "./BinaryTreeNode.js";
+
 export const DEFAULT_CONFIG = {
   radius: 20,
   nodeWidthSpacing: 25,
@@ -80,4 +82,54 @@ export function connectEdges(canvasElement, xCoordinates, yCoordinates) {
   context.lineWidth = 2;
   context.stroke();
   context.closePath();
+}
+
+export function treeConstructor(input) {
+  input = parseInput(input);
+
+  const queue = [];
+
+  let index = 0;
+  const root = new BinaryTreeNode(input[index]);
+  index++;
+  queue.push(root);
+
+  while (queue.length > 0 && index < input.length) {
+    const node = queue.shift(); // Dequeue the first node
+
+    // Process the left child
+    if (index < input.length) {
+      if (input[index] !== null) {
+        const leftChild = new BinaryTreeNode(input[index]);
+        node.setLeft(leftChild);
+        queue.push(leftChild); // Enqueue the left child
+      }
+      index++;
+    }
+
+    // Process the right child
+    if (index < input.length) {
+      if (input[index] !== null) {
+        const rightChild = new BinaryTreeNode(input[index]);
+        node.setRight(rightChild);
+        queue.push(rightChild); // Enqueue the right child
+      }
+      index++;
+    }
+  }
+  return root;
+}
+
+function parseInput(input) {
+  let parsedInput = "";
+
+  for (let i = 0; i < input.length; i++) {
+    const char = input.charAt(i);
+    if (char !== " ") parsedInput += char;
+  }
+  return parsedInput.split(",").map((item) => {
+    if (item === "null") {
+      return null;
+    } else return item;
+  });
 }

@@ -3,3 +3,31 @@
   margin: 0;
   padding: 0;
 }
+
+.input-container {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background-color: #fff;
+  padding: 1rem;
+  width: 10rem;
+}
+
+textarea {
+  resize: none;
+  width: 100%;
+}
+
+.actionBtns {
+  width: 100%;
+  display: flex;
+}
+
+button {
+  width: 5rem;
+  height: 2rem;
+}

@@ -1,9 +1,9 @@
-import { BinaryTreeNode } from "./BinaryTreeNode.js";
 import {
   connectEdges,
   DEFAULT_CONFIG,
   drawNode,
   getRequiredHeightAndWidth,
+  treeConstructor,
 } from "./treeUtils.js";
 
 const canvas = document.querySelector("canvas");
@@ -93,15 +93,46 @@ function recursivelyDrawNode(
   }
 }
 
-const root = new BinaryTreeNode(1);
-const leftChild = new BinaryTreeNode(2);
-root.setLeft(leftChild);
-const rightChild = new BinaryTreeNode(3);
-root.setRight(rightChild);
-const leftChildLeft = new BinaryTreeNode(4);
-leftChild.setLeft(leftChildLeft);
-const leftChildRight = new BinaryTreeNode(5);
-leftChild.setRight(leftChildRight);
+// const root = new BinaryTreeNode(1);
+// const leftChild = new BinaryTreeNode(2);
+// root.setLeft(leftChild);
+// const rightChild = new BinaryTreeNode(3);
+// root.setRight(rightChild);
+// const leftChildLeft = new BinaryTreeNode(4);
+// leftChild.setLeft(leftChildLeft);
+// const leftChildRight = new BinaryTreeNode(5);
+// leftChild.setRight(leftChildRight);
 
-console.log(root);
-drawBinaryTree(root, canvas);
+let previousValue = "";
+function init(value) {
+  previousValue = value;
+  clearCanvas();
+  const root = treeConstructor(value);
+  drawBinaryTree(root, canvas);
+}
+
+const submitBtn = document.querySelector(".submitBtn");
+const clearBtn = document.querySelector(".clearBtn");
+const textarea = document.querySelector("textarea");
+
+submitBtn.addEventListener("click", () => {
+  if (textarea.value === " ") {
+    alert("Please enter a valid tree string");
+    return;
+  }
+  init(textarea.value);
+});
+// console.log(root);
+// drawBinaryTree(root, canvas);
+
+function clearCanvas() {
+  const context = canvas.getContext("2d");
+  context.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+clearBtn.addEventListener("click", () => {
+  textarea.value = " ";
+  clearCanvas();
+});
+
+window.addEventListener("resize", () => init(previousValue));
